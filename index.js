@@ -8,7 +8,7 @@ app.use(cors());
 
 app.use(express.json());
 
-app.use("/public-images", express.static("./files"));
+app.use("/", express.static("./public"));
 
 app.use((req, res, next) => {
     console.log("Logging a request from middleware");

@@ -1,8 +1,12 @@
 const express = require("express");
+const app = express();
 const router = express.Router();
 const fs = require("fs");
 const { v4: uuidv4 } = require('uuid');
+const cors = require('cors');
 
+
+app.use(express.static('public'));
 
 function videoData() {
     const notesData = fs.readFileSync("./data/videos.json");
@@ -26,10 +30,17 @@ router.get("/:videoId", (req, res) => {
 });
 
 router.post("/", (req, res) => {
+    const date = Date.now();
+
     const newVideo = {
         id: uuidv4(),
         title: req.body.title,
         description: req.body.description,
+        likes: 1,
+        timestamp: date,
+        image: 'http://localhost:8080/images/Upload-video-preview.jpg',
+        views: 10,
+        channel: "Freddie Mercury",
     };
 
     const videos = videoData();
